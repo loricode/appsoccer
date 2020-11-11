@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+     Football Teams
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Football Teams</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-list>
+     
+      <ion-item *ngFor="let team of ListTeam">
+        <ion-avatar>
+          <img src={{team.image}}>
+        </ion-avatar>
+        <ion-label>{{team.name}}</ion-label>
+        <ion-label>{{team.trophy}}</ion-label>
+      </ion-item>
+      
+    </ion-list>
+ 
+  </div>
+</ion-content>
