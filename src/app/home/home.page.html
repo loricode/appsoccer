@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-     Football Teams
-    </ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-title>Football Teams</ion-title>
+    <ion-buttons slot="end">
+    <ion-button color="success" fill="outline" 
+               (click)="openAndCloseModal()">
+               add team</ion-button>
+    </ion-buttons>           
   </ion-toolbar>
 </ion-header>
 
@@ -13,18 +16,69 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <ion-list>
-     
-      <ion-item *ngFor="let team of ListTeam">
-        <ion-avatar>
-          <img src={{team.image}}>
-        </ion-avatar>
-        <ion-label>{{team.name}}</ion-label>
-        <ion-label>{{team.trophy}}</ion-label>
-      </ion-item>
-      
-    </ion-list>
+  <div id="container" >
+    <ion-list *ngIf="bandera == false">
+      <ion-list-header>
+        <ion-label>image</ion-label>
+        <ion-label>team name</ion-label>
+        <ion-label># trophy</ion-label>
+        <ion-label>options</ion-label>
+      </ion-list-header>
+
+       <ion-item *ngFor="let team of ListTeam">
+        <ion-grid>
+          <ion-row>
+             <ion-col>
+              <ion-avatar>
+                <img src={{team.image}}>
+              </ion-avatar>
+             </ion-col>
+             <ion-col>
+               <ion-label>{{team.name}}</ion-label>
+             </ion-col>
+             <ion-col>
+              <ion-label> {{team.trophy}}</ion-label>
+             </ion-col>
+             <ion-col>
+              <ion-button color="warning" (click)="getTeam()">
+                <ion-icon name="pencil"></ion-icon>
+              </ion-button>
+              <ion-button color="danger" (click)="delete()">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+           
+          </ion-row>
+        </ion-grid> 
+      </ion-item >
+   </ion-list>
  
+    <ion-card id="card-position" *ngIf="bandera">
+      <ion-toolbar>
+         <ion-button color="danger" slot="end" fill="outline"
+        (click)="openAndCloseModal()">X</ion-button>
+      </ion-toolbar>
+       
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Name Team</ion-label>
+          <ion-input [(ngModel)]="team.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Trophy</ion-label>
+          <ion-input [(ngModel)]="team.trophy"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Image</ion-label>
+          <ion-input [(ngModel)]="team.image"></ion-input>
+        </ion-item>
+        <ion-button color="success" expand="full"
+                   (click)="save()">Save</ion-button>
+       </ion-card-content>
+    </ion-card>
+
   </div>
 </ion-content>
+
+
+ 
