@@ -23,4 +23,9 @@ export class TeamService {
     return this.http.post(this.url, formData)
   }
 
+  public deleteTeam(id:string){
+    
+     return this.http.delete(this.url+'?id='+id)
+  }
+
 }

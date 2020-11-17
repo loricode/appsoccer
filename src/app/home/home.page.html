@@ -37,13 +37,13 @@
                <ion-label>{{team.name}}</ion-label>
              </ion-col>
              <ion-col>
-              <ion-label> {{team.trophy}}</ion-label>
+              <ion-label>{{team.trophy}}</ion-label>
              </ion-col>
              <ion-col>
               <ion-button color="warning" (click)="getTeam()">
                 <ion-icon name="pencil"></ion-icon>
               </ion-button>
-              <ion-button color="danger" (click)="delete()">
+              <ion-button color="danger" (click)="getId(team.id)">
                 <ion-icon name="trash"></ion-icon>
               </ion-button>
             </ion-col>
