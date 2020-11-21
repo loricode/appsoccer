@@ -14,6 +14,7 @@ import { Team } from '../models/team';
 export class HomePage {
   id = ''
   bandera = false
+  isUpdate = false
   team:Team = {name:'', trophy:'', image:''}
   ListTeam:Team[]
 
@@ -23,7 +24,11 @@ export class HomePage {
      this.loadTeam(); 
   }
 
-  public openAndCloseModal():void{ this.bandera = !this.bandera }
+  public openAndCloseModal():void{
+     this.bandera = !this.bandera
+     this.isUpdate = false
+     this.clearInput()
+ }
 
   public loadTeam():void{
     this.teamService.getTeams().subscribe(
@@ -34,13 +39,26 @@ export class HomePage {
   }
 
   public save():void{
-    this.teamService.addTeam(this.team).subscribe(
-      (response) => { 
-         this.presentToast(response)
-         this.clearInput()
-         this.loadTeam()
-       },
-      (error) => { console.log(error) })    
+    if(this.isUpdate){
+      this.teamService.updateTeam(this.team).subscribe(
+        (response) => { 
+           this.presentToast(response)
+           this.clearInput()
+           this.loadTeam()
+           this.isUpdate = false
+         },
+        (error) => { console.log(error) }) 
+
+    }else{
+      this.teamService.addTeam(this.team).subscribe(
+        (response) => { 
+           this.presentToast(response)
+           this.clearInput()
+           this.loadTeam()
+         },
+        (error) => { console.log(error) })  
+    }
+    
    }
    
   public delete():void{
@@ -57,7 +75,19 @@ export class HomePage {
      this.presentAlertConfirm()
    }
 
-   public getTeam():void{ }
+   public getTeam(id:string):void{
+    this.teamService.getTeam(id).subscribe(
+      (response) => { 
+        const {id, name, trophy, image} = response
+        this.team.id = id 
+        this.team.name = name
+        this.team.trophy = trophy
+        this.team.image = image
+        this.isUpdate = true
+        this.bandera = true
+       },
+      (error) => { console.log(error) })
+   }
 
    public clearInput():void{
      this.team.name = '';

@@ -24,8 +24,16 @@ export class TeamService {
   }
 
   public deleteTeam(id:string){
-    
-     return this.http.delete(this.url+'?id='+id)
+    return this.http.delete(this.url+'?id='+id)
   }
+
+  public getTeam(id:string){
+    return this.http.get<Team>(this.url+'?id='+id)
+  }
+
+  public updateTeam(team:Team){
+    return this.http.put(this.url, team)
+  }
+
 
 }
